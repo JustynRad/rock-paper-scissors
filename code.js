@@ -1,124 +1,141 @@
-function computerPlay() {
-    choice = Math.floor(Math.random() * 3) + 1;
+const spellButtons = document.querySelectorAll('.spell-button');
+const rounds = document.querySelector('.round');
+const combatText = document.querySelector('.combat-text');
+const resetButton = document.querySelector('.reset');
 
-    if (choice === 1) {
-        return "Rock";
-    } else if (choice === 2) {
-        return "Paper";
-    } else {
-        return "Scissors"
+let playerLives = 5;
+let computerLives = 5;
+let round = 0;
+
+function computerPlay() {
+    let computerChoice = "";
+    choiceGenerator = Math.floor(Math.random() * 3);
+    computerIcon = document.querySelector('.computer-icon');
+
+    if (choiceGenerator === 0) {
+        computerChoice = 'Fire';
+    } else if (choiceGenerator === 1) {
+        computerChoice = 'Nature';
+    } else if (choiceGenerator === 2) {
+        computerChoice = 'Water';
     }
+
+    computerIcon.classList.remove('fa-book-dead', 'fa-water', 'fa-leaf', 'fa-fire');
+
+    if(computerChoice === 'Fire') {
+        computerIcon.classList.add('fa-fire');
+        computerIcon.style.color = '#DC143C';
+    } else if (computerChoice === 'Nature') {
+        computerIcon.classList.add('fa-leaf');
+        computerIcon.style.color = '#90EE90';
+    } else if (computerChoice === 'Water') {
+        computerIcon.classList.add('fa-water');
+        computerIcon.style.color = '#0096FF';
+    }
+
+    return computerChoice;
+}
+
+function countRounds() {
+    round += 1;
+    rounds.innerText = `Round: ${round}`;
+    return round;
 }
 
 function playRound(playerSelection, computerSelection) {
-    const ROCK = "ROCK";
-    const PAPER = "PAPER";
-    const SCISSORS = "SCISSORS";
+    let gameOutput = document.querySelector('.game-info');
+    let computerPlay = document.querySelector('.computer-play');
 
-    /* Paper */
-    if ((playerSelection == PAPER) && (computerSelection === "Rock")) {
-        return ["You win!, Paper beats Rock", 1];
-    } else if ((playerSelection == ROCK) && (computerSelection === "Paper")) {
-        return ["You lose!, Paper beats Rock" , 0];
-    } else if ((playerSelection == PAPER) && (computerSelection === "Paper")) {
-        return ["You tied!, Paper can't beat Paper", -1];
+    if (playerSelection === computerSelection) {
+        combatText.innerText= `You both cast a ${playerSelection} spell. This results in a draw. Try again!`;
+        gameOutput.style.border = '4px solid #8070ac';
+        computerPlay.classList.remove('grey-border', 'green-border', 'red-border');
+        computerPlay.classList.add('purple-border');
+    } else if (
+        (playerSelection === "Fire" && computerSelection === "Nature") ||
+        (playerSelection === "Nature" && computerSelection === "Water") ||
+        (playerSelection === "Water" && computerSelection === "Fire")
+    ) {
+        combatText.innerText= `The spell hit! The enemy lost one life due to the ${playerSelection} being a natural counter to his ${computerSelection}!`;
+        gameOutput.style.border = '4px solid #62b49c';
+        computerPlay.classList.remove('grey-border', 'red-border', 'purple-border');
+        computerPlay.classList.add('green-border');
+        computerLives -= 1;
+    } else {
+        combatText.innerText=`Argh!.. You were hit by his ${computerSelection} spell due to it being a natural counter to your ${playerSelection} spell!`;
+        gameOutput.style.border = '4px solid #b96b78';
+        computerPlay.classList.remove('grey-border', 'green-border', 'purple-border');
+        computerPlay.classList.add('red-border');
+        playerLives -= 1;
     }
 
-    /* Scissors */
-    if ((playerSelection == SCISSORS) && (computerSelection === "Paper")) {
-        return ["You win!, Scissors beats Paper", 1];
-    } else if ((playerSelection == PAPER) && (computerSelection === "Scissors")) {
-        return ["You lose!, Scissors beats Paper", 0];
-    } else if ((playerSelection == SCISSORS) && (computerSelection === "Scissors")) {
-        return ["You tied!, Scissors can't beat Scissors", -1];
-    }
+    let currLives = document.querySelector('.lives');
+    currLives.innerText = `Lives left: ${playerLives} | Enemy's Lives Remaining: ${computerLives}`;
 
-    /* Rock */
-    if ((playerSelection == ROCK) && (computerSelection === "Scissors")) {
-        return ["You win!, Rock beats Scissors", 1];
-    } else if ((playerSelection == SCISSORS) && (computerSelection === "Rock")) {
-        return ["You lose!, Rock beats Scissors", 0];
-    } else if ((playerSelection == ROCK) && (computerSelection === "Rock")) {
-        return ["You tied!, Rock can't beat Rock", -1];
+    return [playerLives, computerLives];
+}
+
+function endGame(playerLives, computerLives) {
+    if (playerLives === 0 || computerLives === 0) {
+        spellButtons.forEach((button) => {
+            button.setAttribute('disabled', '');
+            button.classList.add('disabled-button', 'opacity');
+        });
+
+        let computerIcon = document.querySelector('.computer-icon');
+        computerIcon.style.opacity = '0.5';
+
+        const gameEndText = document.querySelector('.game-end-text');
+        if(playerLives > computerLives) {
+            combatText.innerText = 'The enemy can no longer fight!';
+            gameEndText.textContent = 'You won the battle!'
+            gameEndText.style.color = '#62b49c';
+        } else {
+            combatText.innerText = 'You can no longer fight!';
+            gameEndText.textContent = 'You lost the battle!';
+            gameEndText.style.color = '#b96b78';
+        }
+
+        resetButton.style.visibility = 'visible';
     }
 }
 
-function getResult(data) {
-    return data;
-}
-
-function stateWinner(playerScore, computerScore) {
-    if(playerScore === 5) {
-        console.log("The final score is the Player with " + playerScore + " while AI has a score of " + computerScore + ". The player wins!");
-    } else if ( computerScore === 5 ) {
-        console.log("The final score is the Player with " + playerScore + " while AI has a score of " + computerScore + ". The AI wins!");
-    }
+function resetGame() {
+    resetButton.addEventListener('click', () => {
+        window.location.reload();
+    } );
 }
 
 function game() {
-    let playerScore = 0;
-    let computerScore = 0;
+    let playerSelection;
     
-    const btn1 = document.querySelector('#rock');
-    btn1.addEventListener('click', function(e) {
-        let result = playRound(btn1.textContent.toUpperCase(), computerPlay());
-        [text, value] = getResult(result);
-        console.log(text);
-        
-        if (value === 1) {
-            playerScore += 1;
-        } else if (value === 0) {
-            computerScore += 1;
-        }
+    console.log("Start")
+    spellButtons.forEach((spell) => {
+        spell.addEventListener('click', () => {
+            let spellIcons = document.querySelectorAll('.spell-button');
+            if (spell.classList.contains('fire-button')) {
+                spellIcons[0].style.color = '#8070ac';
+                spellIcons[1].style.color = '#5e5e5e';
+                spellIcons[2].style.color = '#5e5e5e';
+                playerSelection = 'Fire';
+            } else if (spell.classList.contains('nature-button')) {
+                spellIcons[0].style.color = '#8070ac';
+                spellIcons[1].style.color = '#5e5e5e';
+                spellIcons[2].style.color = '#5e5e5e';
+                playerSelection = 'Nature';
+            } else {
+                spellIcons[0].style.color = '#8070ac';
+                spellIcons[1].style.color = '#5e5e5e';
+                spellIcons[2].style.color = '#5e5e5e';
+                playerSelection = 'Water';
+            }
 
-        stateWinner(playerScore, computerScore);
+            countRounds();
+            playRound(playerSelection, computerPlay());
+            endGame(playerLives, computerLives);
+            resetGame();
+        }); 
     });
-
-    const btn2 = document.querySelector('#paper');
-    btn2.addEventListener('click', function(e) {
-        let result = playRound(btn2.textContent.toUpperCase(), computerPlay());
-        [text, value] = getResult(result);
-        console.log(text);
-        
-        if (value === 1) {
-            playerScore += 1;
-        } else if (value === 0) {
-            computerScore += 1;
-        }
-
-        stateWinner(playerScore, computerScore);
-    });
-
-    const btn3 = document.querySelector('#scissors');
-    btn3.addEventListener('click', function(e) {
-        let result = playRound(btn3.textContent.toUpperCase(), computerPlay());
-        [text, value] = getResult(result);
-        console.log(text);
-        playerScore += value;
-
-        if (value === 1) {
-            playerScore += 1;
-        } else if (value === 0) {
-            computerScore += 1;
-        } else if (value === -1) {
-            playerScore += 0;
-            computerScore += 0;
-        }
-
-        stateWinner(playerScore, computerScore);
-    });
-
-    // for(let i = 0; i < 5; i++ ) {
-    //     [result, score] = playRound(prompt("Pick between Rock, Paper, Scissors"),computerPlay());
-        
-        // if (score === 1) {
-        //     playerScore += 1;
-        // } else if (score == 0) {
-        //     computerScore += 1;
-        // }
-
-    //    console.log(result);
-    // }
 }
 
 game();

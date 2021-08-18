@@ -1,11 +1,54 @@
 <!DOCTYPE html>
+<!-- WIZARD BATTLE -->
 <head>
+    <meta charset="UTF-8">
     <script src="code.js" defer></script>
+    <link rel="stylesheet" href="index.css">
+     <script src="https://kit.fontawesome.com/10450f338f.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Macondo+Swash+Caps&display=swap" rel="stylesheet">
+    
 </head>
 <html>
     <body>
-        <button id="rock" type="button">Rock</button>
-        <button id="paper"type="button">Paper</button>
-        <button id="scissors" type="button">Scissors</button>
+        <header class="gameHeader">
+            <h1 class="purple-color">WIZARD DUEL</h1>
+            <p>Will your <span class="gold-color">spells</span> remain superior?</p>
+            <p><span class="red-color">Fire</span> beats <span class="green-color">Nature</span> |  
+                <span class="green-color">Nature</span> beats <span class="blue-color">Water</span> |  
+                <span class="blue-color"> Water </span> beats <span class="red-color">Fire</span> </p>
+        </header>
+
+        <main class="core-game">
+            <div class="element-div">
+                <button class="fire-button spell-button">
+                    <i class="fas fa-fire spell-icon fire-icon"></i>
+                </button>
+                <button class="nature-button spell-button">
+                    <i class="fas fa-leaf spell-icon nature-icon"></i>
+                </button>
+                <button class="water-button  spell-button">
+                    <i class="fas fa-water spell-icon water-icon"></i>
+                </button>
+            </div>
+
+            <img src="separator.jpeg" alt="Separator" class="separator">
+
+            <div class="game-info">
+                <div class="computer-play grey-border centering fa-fw">
+                    <p class= "computer-title">Enemy's Spell</p>
+                    <i class="fas fa-book-dead fa-fw computer-icon"></i>
+                </div>
+                <div class="game-results">
+                    <p class="round">Round: 0</p>
+                    <p class="lives">Your Lives: 5 | Enemy's Lives: 5</p>
+                    <p class="combat-text">Duel Arena: No one has cast a spell yet.</p>
+                </div>
+            </div>
+
+            <div class="game-end">
+                <p class="game-end-text"></p>
+                <button class="reset">Duel again!</button>
+            </div>
+        </main>
     </body>
 </html>

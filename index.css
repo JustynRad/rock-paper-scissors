@@ -1,0 +1,215 @@
+body {
+    font-family: 'Macondo Swash Caps', cursive;
+    color: #5e5e5e;
+}
+
+.gameHeader {
+    text-align: center;
+    font-size: 25px;
+    color: #5e5e5e;
+}
+
+.gold-color {
+    color: #FFD700;
+}
+.purple-color {
+    color: #8070ac;
+}
+.red-color {
+    color: #DC143C;
+}
+.green-color {
+    color: #90EE90;
+}
+.blue-color {
+    color: #0096FF;
+}
+
+.core-game {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    margin: 30px auto;
+} 
+ 
+.element-div {
+    display: flex;
+    justify-content: space-evenly;
+    border: 4px solid #5e5e5e;
+    border-radius: 5px;
+}
+.spell-button {
+    background-color: transparent;
+    border: none;
+}
+.spell-button:focus, .reset:focus {
+    outline: none;
+}
+.spell-icon {
+    margin: 50px 0;
+    color: #5e5e5e;
+    font-size: 70px;
+    transition: all .3s;
+}
+
+.spell-icon:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.3);
+    transform: scale(1.1);
+    transition: all .3s;
+}
+
+.fire-icon:hover {
+    color: #DC143C !important;
+}
+.nature-icon:hover {
+    color: #90EE90 !important;
+}
+.water-icon:hover {
+    color: #0096FF !important;
+}
+.disabled-button .spell-icon {
+    cursor: default;
+    transform: none;
+}
+.disabled-button .spell-icon {
+    cursor: default;
+    transform: none;
+}
+
+.separator {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.game-info {
+    display: flex;
+    border: 4px solid #5e5e5e;
+    border-radius: 5px;
+    transition: all .2s linear;
+    font-size: 135px;
+}
+.computer-play {
+    transition: all .2s linear;
+}
+
+.computer-title {
+    margin: 19px 0px -35px 0px;
+    font-size: 19px;
+}
+.computer-icon {
+    margin: 50px 50px 40px 35px;
+    color: #5e5e5e;
+    font-size: 70px;
+}
+
+.game-results {
+    margin: 0 20px;
+    font-size: 19px;
+}
+
+/* Computer Div Borders for Javascript */
+.purple-border {
+    border-right: 4px solid #8070ac;
+}
+.green-border {
+    border-right: 4px solid #62b49c;
+}
+.red-border {
+    border-right: 4px solid #b96b78;
+}
+.grey-border {
+    /* border-width: 10px; */
+    border-right: 4px solid #5e5e5e;
+}
+
+/* Game End */
+.opacity {
+    opacity: 0.5;
+}
+.game-end {
+    text-align: center;
+}
+.game-end-text {
+    font-size: 50px;
+}
+.reset {
+    visibility: hidden;
+    margin-bottom: 60px;
+    padding: 20px;
+    font-size: 25px;
+    color: #5e5e5e;
+    border: 4px solid #5e5e5e;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: all .3s;
+    cursor: pointer;
+    font-family: 'Macondo Swash Caps', cursive;
+}
+.reset:hover {
+    background-color: #5e5e5e;
+    color: #fff;
+}
+
+/* Responsive Layout */
+@media (max-width: 750px) {
+    .gameHeader {
+        font-size: 17px;
+    }
+    .core-game {
+        margin: 30px;
+        text-align: center;
+    }
+    .separator {
+        font-size: 15px;
+    }
+    .spell-icon,
+    .computer-icon {
+        font-size: 60px;
+        margin: 30px;
+    }
+    .spell-icon {
+        margin: 30px 0;
+    }
+    .game-info {
+        flex-direction: column;
+    }
+    .centering {
+        text-align: center;
+    }
+    .computer-title {
+        margin: 10px auto;
+        font-size: 17px;
+    }
+    .computer-icon {
+        margin-top: 10px;
+    }
+    .purple-border {
+        border-right: none;
+        border-bottom: 4px solid #8070ac;
+    }
+    .green-border {
+        border-right: none;
+        border-bottom: 4px solid #62b49c;
+    }
+    .red-border {
+        border-right: none;
+        border-bottom: 4px solid #b96b78;
+    }
+    .grey-border {
+        border-right: none;
+        border-bottom: 4px solid #5e5e5e;
+    }
+    .game-results {
+        font-size: 17px;
+    }
+    .game-end-text {
+        font-size: 35px;
+    }
+    .reset {
+        font-size: 17px;
+    }
+
+    
+}
