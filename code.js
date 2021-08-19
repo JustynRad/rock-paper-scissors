@@ -56,7 +56,7 @@ function playRound(playerSelection, computerSelection) {
         (playerSelection === "Nature" && computerSelection === "Water") ||
         (playerSelection === "Water" && computerSelection === "Fire")
     ) {
-        combatText.innerText= `The spell hit! The enemy lost one life due to your ${playerSelection} being a natural counter to his ${computerSelection} spell!`;
+        combatText.innerText= `The spell hit! The enemy lost one life due to your ${playerSelection} spell being a natural counter to his ${computerSelection} spell!`;
         gameOutput.style.border = '4px solid #62b49c';
         computerPlay.classList.remove('grey-border', 'red-border', 'purple-border');
         computerPlay.classList.add('green-border');
